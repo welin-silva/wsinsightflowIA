@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: insightflow-ai-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false        # Set manually in Render dashboard — never committed
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: ALLOWED_ORIGINS
+        sync: false        # Set to your Vercel URL after deploy
